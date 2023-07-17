@@ -792,56 +792,86 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
-    $(document).ready(function () {
-      $("#video-carousel").owlCarousel({
+   $(document).ready(function () {
+  var videoCarousel = $("#video-carousel");
+
+  videoCarousel.owlCarousel({
+    items: 1,
+    video: true,
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    navText: [
+      "<i class='fa-regular fa-circle-left fa-xl' style='color: #000000';></i>",
+      "<i class='fa-regular fa-circle-right fa-xl' style='color: #000000';></i>"
+    ],
+    responsive: {
+      0: {
         items: 1,
-        video: true,
-        loop: true,
-        margin: 10,
-        nav: true,
-        dots: true,
-        autoplay: true,
-        autoplayTimeout: 3000,
-        autoplayHoverPause: true,
+        autoplay: false // Disable autoplay in mobile view
+      },
+      600: {
+        items: 1,
+        autoplay: true // Enable autoplay in larger screens
+      },
+      700: {
+        items: 1,
+        autoplay: true // Enable autoplay in larger screens
+      },
+      1000: {
+        items: 1,
+        autoplay: true // Enable autoplay in larger screens
+      },
+    },
+    onTranslate: function (event) {
+      var currentSlide, player, command;
+
+      currentSlide = $('.owl-item.active');
+
+      player = currentSlide.find(".flex-video iframe").get(0);
+
+      command = {
+        "event": "command",
+        "func": "pauseVideo"
+      };
+
+      if (player != undefined) {
+        player.contentWindow.postMessage(JSON.stringify(command), "*");
+      }
+    }
+  });
+
+  // Stop autoplay when a video is playing in mobile view
+  videoCarousel.on('play.owl.autoplay', function (event) {
+    if ($(window).width() <= 600) {
+      videoCarousel.trigger('stop.owl.autoplay');
+    }
+  });
+
+  // Resume autoplay when a video is paused in mobile view
+  videoCarousel.on('stop.owl.autoplay', function (event) {
+    if ($(window).width() <= 600) {
+      videoCarousel.trigger('play.owl.autoplay');
+    }
+  });
+
+  // Disable autoplay on page load in mobile view
+  if ($(window).width() <= 600) {
+    videoCarousel.trigger('stop.owl.autoplay');
+  }
+
+  // Enable autoplay when the window is resized to a larger screen
+  $(window).on('resize', function () {
+    if ($(window).width() > 600) {
+      videoCarousel.trigger('play.owl.autoplay');
+    }
+  });
 
 
-        navText: [
-          "<i class='fa-regular fa-circle-left fa-xl' style='color: #000000';></i>",
-          "<i class='fa-regular fa-circle-right fa-xl' style='color: #000000';></i>"
-        ],
-        responsive: {
-          0: {
-            items: 1,
-          },
-          600: {
-            items: 1,
-          },
-          700: {
-            items: 1,
-          },
-          1000: {
-            items: 1,
-          },
-        },
-        onTranslate: function (event) {
-          var currentSlide, player, command;
-
-          currentSlide = $('.owl-item.active');
-
-          player = currentSlide.find(".flex-video iframe").get(0);
-
-          command = {
-            "event": "command",
-            "func": "pauseVideo"
-          };
-
-          if (player != undefined) {
-            player.contentWindow.postMessage(JSON.stringify(command), "*");
-
-          }
-
-        }
-      });
 
       $('#image-carousel').owlCarousel({
         dots: true,
