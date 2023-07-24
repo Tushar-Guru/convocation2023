@@ -211,27 +211,36 @@ a {
 }
 
 .photo-btn a {
-  border: 2px solid #e47a2f;
+ 
+  border-radius: 5px;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  padding: 10px 100px;
+  font-weight: 500;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+}
+.photo-btn .Itinerarylink {
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
   border-radius: 5px;
   text-align: center;
   color: #ffffff;
   padding: 10px 100px;
   font-weight: 500;
-  background-color: #e47a2f;
-}
-.photo-btn .Itinerarylink {
-  border: 2px solid #e47a2f;
-  border-radius: 5px;
-  text-align: center;
-  color: #ffffff;
-  padding: 10px 20px;
-  font-weight: 500;
-  background-color: #e47a2f;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
 }
 .photo-btn .Itinerarylink:hover,.photo-btn a:hover{
-  background-color:#ffffff ;
-  color: #e47a2f;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  color: #f5f1f5;
 }
+
+.parentsexplink{
+  padding:10px 78px !important ;
+}
+
+
+
 .owl-prev {
   position: absolute;
   top: 240px;
